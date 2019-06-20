@@ -8,7 +8,9 @@ import os
 
 client = discord.Client()
 triggerchar = '?'
-
+onfig = configparser.ConfigParser()
+config.read('config.ini')
+token = config['keys']['discord']
 
 #Asynchronous tasks
 
@@ -32,3 +34,5 @@ async def on_message(message):
         name = tab[1]
         s = file.read("fights/" + name)
         await client.send_message(message.channel, s)
+
+client.run(token)
