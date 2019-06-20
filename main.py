@@ -8,9 +8,12 @@ import os
 
 client = discord.Client()
 triggerchar = '?'
-onfig = configparser.ConfigParser()
+config = configparser.ConfigParser()
 config.read('config.ini')
 token = config['keys']['discord']
+
+if (not os.path.exists("fights")):
+	os.mkdir("fights")
 
 #Asynchronous tasks
 
@@ -23,16 +26,19 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.startswith(triggerchar + 'addfight')
-        tab = message.content.split()
-        name = tab[1]
-        strat = ' '.join(tab[2:])
-        file = os.mkdir("fights/" + name)
-        file.write(strat)
-    elif message.content.startswith(triggerchar + 'fight')
-        tab = message.content.split()
-        name = tab[1]
-        s = file.read("fights/" + name)
-        await client.send_message(message.channel, s)
+	if message.content.startswith(triggerchar + 'addfight'):
+		tab = message.content.split()
+		name = tab[1]
+		strat = ' '.join(tab[2:])
+		file = open("fights/" + name, "w+")
+		file.write(strat)
+		await message.channel.send("fight was added")
+	elif message.content.startswith(triggerchar + 'fight'):
+		tab = message.content.split()
+		name = tab[1]
+		print("accessing " + name)
+		file = open("fights/" + name, "r")
+		s = file.read()
+		await message.channel.send(s)
 
 client.run(token)
