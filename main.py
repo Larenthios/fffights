@@ -27,3 +27,8 @@ async def on_message(message):
         strat = ' '.join(tab[2:])
         file = os.mkdir("fights/" + name)
         file.write(strat)
+    elif message.content.startswith(triggerchar + 'fight')
+        tab = message.content.split()
+        name = tab[1]
+        s = file.read("fights/" + name)
+        await client.send_message(message.channel, s)
